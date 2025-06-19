@@ -1,5 +1,6 @@
 package tests;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -26,12 +27,14 @@ public class TextBoxTests {
     @Test
     void textBoxPositiveTest() {
         open("/text-box");
-        $("#userName").setValue("Denisovich");
-        $("#userEmail").setValue("DenBel@yandex.ru");
+
+        $("[id=userName]").setValue("Denisovich");
+        $("[id=userEmail]").setValue("DenBel@yandex.ru");
         $("#currentAddress").setValue("Korolev");
         $("#permanentAddress").setValue("Gorod");
         $("#submit").click();
 
+        $("#output").shouldBe(Condition.visible);
         $("#output #name").shouldHave(text("Denisovich"));
         $("#output #email").shouldHave(text("DenBel@yandex.ru"));
         $("#output #currentAddress").shouldHave(text("Korolev"));
